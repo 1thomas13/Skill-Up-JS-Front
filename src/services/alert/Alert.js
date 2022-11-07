@@ -44,6 +44,10 @@ export const alert = {
     }
   },
   information: (title, text) => {
-    return 1
+    Swal.fire({
+      icon: 'info',
+      title,
+      text
+    })
   }
 }
