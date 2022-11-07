@@ -44,10 +44,19 @@ export const alert = {
     }
   },
   information: (title, text) => {
-    Swal.fire({
+    return Swal.fire({
       icon: 'info',
       title,
       text
+    })
+  },
+  question: (title, text, textConfirmButton) => {
+    return Swal.fire({
+      icon: 'question',
+      title,
+      text,
+      confirmButtonText: textConfirmButton,
+      showCancelButton: true
     })
   }
 }
