@@ -1,19 +1,20 @@
 import Swal from 'sweetalert2'
 
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
 export const alert = {
   confirmation: (toast, title, text) => {
     if (toast === true) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-      })
       return Toast.fire({
         icon: 'success',
         title,
@@ -27,8 +28,20 @@ export const alert = {
       })
     }
   },
-  error: (type, title, text) => {
-    return 1
+  error: (toast, title, text) => {
+    if (toast === true) {
+      return Toast.fire({
+        icon: 'error',
+        title,
+        text
+      })
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title,
+        text
+      })
+    }
   },
   information: (title, text) => {
     return 1
