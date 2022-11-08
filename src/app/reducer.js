@@ -1,7 +1,8 @@
 import { GET_CATEGORIES } from './actions/types'
 
 const initialState = {
-  categories: []
+  categories: [],
+  users: []
 }
 
 function rootReducer (state = initialState, { type, payload }) {

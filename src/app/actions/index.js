@@ -24,3 +24,14 @@ export function postCategory (payload) {
     }
   }
 }
+
+export function createUser (payload) {
+  return async function () {
+    try {
+      const response = await axios.post(`${URL}/users`, payload)
+      return response
+    } catch (e) {
+      console.log(e.message)
+    }
+  }
+}

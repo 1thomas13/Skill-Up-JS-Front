@@ -16,14 +16,14 @@ export const FormCategory = () => {
                 validate={(valores) => {
                   const errors = {}
                   if (!valores.name) {
-                    errors.name = 'Name required'
+                    errors.name = 'Debe completar este campo'
                   } else if (/^\s/.test(valores.name)) {
-                    errors.name = 'Can´t start whit an empty space'
+                    errors.name = 'No puede empezar con un espacio vacío'
                   }
                   if (!valores.description) {
-                    errors.description = 'Description required'
+                    errors.description = 'Debe completar este campo'
                   } else if (/^\s/.test(valores.description)) {
-                    errors.description = 'Can´t start whit an empty space'
+                    errors.description = 'No puede empezar con un espacio vacío'
                   }
                   return errors
                 }}
@@ -37,19 +37,19 @@ export const FormCategory = () => {
                 }}>
                 {({ touched, errors }) => (
                     <Form>
-                        <h1>New Category</h1>
+                        <h1>Nueva Categoría</h1>
                         <div>
-                            <label>Name: </label>
-                            <Field type='text' name='name' placeholder='Name' />
+                            <label>Nombre: </label>
+                            <Field type='text' name='name' placeholder='Nombre' />
                             {touched.name && errors.name && <span>{errors.name}</span>}
                         </div>
                         <div>
-                            <label>Description: </label>
-                            <Field type='text' name='description' placeholder='Description' />
+                            <label>Descripción: </label>
+                            <Field type='text' name='description' placeholder='Descripción' />
                             {touched.description && errors.description && <span>{errors.description}</span>}
                         </div>
                         <div>
-                            <button type='submit'>Create Category</button>
+                            <button type='submit'>Crear Categoría</button>
                         </div>
                     </Form>
                 )}
