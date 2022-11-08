@@ -13,3 +13,14 @@ export function getCategories () {
     }
   }
 }
+
+export function postCategory (payload) {
+  return async function () {
+    try {
+      const response = await axios.post(`${URL}/categories`, payload)
+      return response
+    } catch (e) {
+      console.log(e.message)
+    }
+  }
+}
