@@ -1,29 +1,34 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
-const token = localStorage.getItem('token')
-
-const instance = axios.create({
-  baseURL: import.meta.env.VITE_URL,
-  headers: token && { authorization: `Bearer ${token}` }
-})
-
-const useApi = ({ endpoint, method }) => {
+export const useApi = ({ endpoint, method, newData }) => {
   const [data, setData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  const token = localStorage.getItem('token')
+
+  const instance = axios.create({
+    baseURL: import.meta.env.VITE_URL,
+    headers: { authorization: token && `Bearer ${token}` }
+  })
+
+  const config = {
+    method,
+    url: endpoint,
+    data: newData
+  }
+
   useEffect(() => {
-    instance[method](endpoint)
+    instance(config)
       .then((res) => setData(res.data))
       .catch((err) => setError(err))
       .finally(() => setIsLoading(false))
   }, [endpoint, method])
 
-  return { data, isLoading, error }
+  //   USE EXAMPLE
+  // const { isLoading } = useApi({ endpoint: 'users', method: "post", newData: newUser })
+  //   console.log(isLoading)
+
+  return { data, error, isLoading }
 }
-
-// USE
-// Ex. = const { data, isLoading, error } = useApi({ endpoint: 'users', method: 'get' })
-// console.log(data)
-
-export default useApi
