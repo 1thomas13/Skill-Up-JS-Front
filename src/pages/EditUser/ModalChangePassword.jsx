@@ -20,7 +20,9 @@ export const ModalChangePassword = () => {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
         >
-            <ChangePassword/>
+            <Box>
+              <ChangePassword/>
+            </Box>
         </Modal>
     </Box>
   )
