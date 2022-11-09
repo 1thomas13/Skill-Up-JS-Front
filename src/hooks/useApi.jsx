@@ -24,7 +24,7 @@ export const useApi = ({ endpoint, method, newData }) => {
       .then((res) => setData(res.data))
       .catch((err) => setError(err))
       .finally(() => setIsLoading(false))
-  }, [endpoint, method])
+  }, [endpoint, method, newData])
 
   //   USE EXAMPLE
   // const { isLoading } = useApi({ endpoint: 'users', method: "post", newData: newUser })
