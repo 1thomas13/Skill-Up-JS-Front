@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { GET_CATEGORIES } from './types'
 
-const { URL } = process.env
+const { URL } = import.meta.env.VITE_URL
 
 export function getCategories () {
   return async function (dispatch) {
@@ -29,6 +29,17 @@ export function createUser (payload) {
   return async function () {
     try {
       const response = await axios.post(`${URL}/users`, payload)
+      return response
+    } catch (e) {
+      console.log(e.message)
+    }
+  }
+}
+
+export function createTransaction (payload) {
+  return async function () {
+    try {
+      const response = await axios.post(`${URL}/transactions`, payload)
       return response
     } catch (e) {
       console.log(e.message)

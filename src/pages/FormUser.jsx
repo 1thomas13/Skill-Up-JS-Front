@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Formik, Form, Field } from 'formik'
 import { createUser } from '../app/actions'
 
-export const FormCategory = () => {
+export const FormUser = () => {
   const dispatch = useDispatch()
   const users = useSelector(state => state.users)
 
