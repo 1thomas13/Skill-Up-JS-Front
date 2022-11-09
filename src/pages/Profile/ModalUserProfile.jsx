@@ -1,9 +1,10 @@
 import React from 'react'
-import { Box, Modal } from '@mui/material'
-import { CustomButton } from '../../Components/CustomButton'
+import { Box, Modal, Button } from '@mui/material'
 import { UserProfile } from './UserProfile'
+import Icon from '@mui/material/Icon'
+
 export const ModalUserProfile = () => {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(true)
   const handleOpenUserProfile = () => {
     setOpen(true)
   }
@@ -12,7 +13,7 @@ export const ModalUserProfile = () => {
   }
   return (
     <Box>
-        <CustomButton onClick={handleOpenUserProfile}>Open modal</CustomButton>
+        <Button onClick={handleOpenUserProfile}><Icon>person</Icon> User profile</Button>
         <Modal
         open={open}
         onClose={handleCloseUserProfile}
