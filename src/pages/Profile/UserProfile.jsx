@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, CardActions, CardContent, Typography } from '@mui/material'
 import { CustomButton } from '../../Components/CustomButton'
+import { ModalChangePassword } from '../EditUser/ModalChangePassword'
 
 const styleCard = {
   position: 'absolute',
@@ -28,7 +29,7 @@ export const UserProfile = () => {
       </CardContent>
       <CardActions sx={{ m: 6 }}>
         <CustomButton>Editar usuario</CustomButton>
-        <CustomButton>Cambiar contrasena</CustomButton>
+        <ModalChangePassword/>
         <CustomButton>Borrar usuario</CustomButton>
       </CardActions>
     </Card>
