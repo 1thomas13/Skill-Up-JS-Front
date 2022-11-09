@@ -23,9 +23,9 @@ export const UserProfile = () => {
     <Card sx={{ ...styleCard }}>
       <CardContent sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
         <Typography variant='h4' sx={{ mb: 5, mt: 2 }}>User profile</Typography>
-        {fields.map((field) => {
-          return <Typography key={field.name} sx={{ m: 4 }} variant='h6'>{field.name}: </Typography>
-        })}
+        {fields.map((field) => (
+          <Typography key={field.name} sx={{ m: 4 }} variant='h6'>{field.name}: </Typography>
+        ))}
       </CardContent>
       <CardActions sx={{ m: 6 }}>
         <CustomButton>Editar usuario</CustomButton>
