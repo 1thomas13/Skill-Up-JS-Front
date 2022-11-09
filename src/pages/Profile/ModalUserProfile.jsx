@@ -4,7 +4,7 @@ import { UserProfile } from './UserProfile'
 import Icon from '@mui/material/Icon'
 
 export const ModalUserProfile = () => {
-  const [open, setOpen] = React.useState(true)
+  const [open, setOpen] = React.useState(false)
   const handleOpenUserProfile = () => {
     setOpen(true)
   }
@@ -20,7 +20,9 @@ export const ModalUserProfile = () => {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
         >
+          <Box>
             <UserProfile/>
+          </Box>
         </Modal>
     </Box>
   )
