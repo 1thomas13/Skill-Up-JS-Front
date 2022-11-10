@@ -2,6 +2,7 @@ import { React } from 'react'
 import { useDispatch } from 'react-redux'
 import { Formik, Form, Field } from 'formik'
 import { postCategory } from '../app/actions'
+import { alert } from '../services/alert/Alert.js'
 
 export const FormCategory = () => {
   const dispatch = useDispatch()
@@ -29,10 +30,7 @@ export const FormCategory = () => {
                 }}
                 onSubmit={(valores, { resetForm }) => {
                   dispatch(postCategory(valores))
-                  /*  Swal.fire(
-                    'Category created',
-                    'success'
-                  ) */
+                  alert.confirmation(true, 'Categoría creada', 'Has añadido una nueva categoría')
                   resetForm()
                 }}>
                 {({ touched, errors }) => (

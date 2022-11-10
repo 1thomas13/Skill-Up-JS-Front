@@ -2,6 +2,7 @@ import { React } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Formik, Form, Field } from 'formik'
 import { createUser } from '../app/actions'
+import { alert } from '../services/alert/Alert.js'
 
 export const FormUser = () => {
   const dispatch = useDispatch()
@@ -16,8 +17,7 @@ export const FormUser = () => {
                   email: '',
                   password: '',
                   password2: '',
-                  avatar: '',
-                  roleId: 2
+                  avatar: ''
                 }}
                 validate={(valores) => {
                   const errors = {}
@@ -48,10 +48,7 @@ export const FormUser = () => {
                 }}
                 onSubmit={(valores, { resetForm }) => {
                   dispatch(createUser(valores))
-                  /*  Swal.fire(
-                    '¡Te has registrado!',
-                    'success'
-                  ) */
+                  alert.confirmation(true, 'Bienvenido', 'Te has registrado correctamente')
                   resetForm()
                 }}>
                 {({ touched, errors }) => (

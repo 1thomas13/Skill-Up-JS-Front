@@ -1,10 +1,12 @@
 import { React } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Formik, Form, Field } from 'formik'
 import { createTransaction } from '../app/actions'
+import { alert } from '../services/alert/Alert.js'
 
 export const FormTransaction = () => {
   const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
 
   return (
     <div>
@@ -12,7 +14,9 @@ export const FormTransaction = () => {
                 initialValues={{
                   amount: 0,
                   description: '',
-                  date: ''
+                  date: '',
+                  categoryId: 0,
+                  userId: user.id
                 }}
                 validate={(valores) => {
                   const errors = {}
@@ -30,11 +34,8 @@ export const FormTransaction = () => {
                   return errors
                 }}
                 onSubmit={(valores, { resetForm }) => {
-                  dispatch(createTransaction(valores))
-                  /*  Swal.fire(
-                    'Category created',
-                    'success'
-                  ) */
+                  dispatch(createTransaction(valores.amount, valores.description, valores.date))
+                  alert.confirmation(true, 'Operación creada', 'Has añadido una nueva operación')
                   resetForm()
                 }}>
                 {({ touched, errors }) => (
@@ -54,6 +55,17 @@ export const FormTransaction = () => {
                             <label>Fecha: </label>
                             <Field type='date' name='date' placeholder='Fecha' />
                             {touched.date && errors.date && <span>{errors.date}</span>}
+                        </div>
+                        <div id='my-radio-group'>Categoría: </div>
+                        <div role='group' aria-labelledby='my-radio-group'>
+                            <label>
+                            <Field type='radio' name='categoryId' value='1' />
+                              Ingreso
+                            </label>
+                            <label>
+                            <Field type='radio' name='categoryId' value='2' />
+                              Egreso
+                            </label>
                         </div>
                         <div>
                             <button type='submit'>Crear Transacción</button>
