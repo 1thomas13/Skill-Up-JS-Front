@@ -2,6 +2,9 @@ import React from 'react'
 import { Card, CardActions, CardContent, Typography, Button, TextField } from '@mui/material'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
+import { useDispatch } from 'react-redux'
+import { alert } from '../../services/alert/Alert'
+import { updatePassword } from '../../app/actions'
 
 const styleCard = {
   position: 'absolute',
@@ -21,19 +24,21 @@ const validationSchema = yup.object({
   currentPassword: yup
     .string('Ingresa la contraseña actual')
     .min(8, 'La contraseña debe tener un minimo de 8 caracteres')
-    .required('La contraseña es requerida'),
+    .required('El campo es requerido'),
   newPassword: yup
     .string('Ingresa una nueva contraseña')
     .min(8, 'La contraseña debe tener un minimo de 8 caracteres')
-    .required('La contraseña es requerida'),
+    .notOneOf([yup.ref('currentPassword'), null], 'Las contraseña no debe coincidir con la actual')
+    .required('El campo es requerido'),
   passwordConfirmation: yup
     .string('Repite la nueva contraseña')
     .min(8, 'La contraseña debe tener un minimo de 8 caracteres')
     .oneOf([yup.ref('newPassword'), null], 'Las contraseñas deben coincidir')
-    .required('La contraseña es requerida')
+    .required('El campo es requerido')
 })
 
-export const ChangePassword = () => {
+export const ChangePassword = ({ handleCloseChangePassword }) => {
+  const dispatch = useDispatch()
   const formik = useFormik({
     initialValues: {
       currentPassword: '',
@@ -42,7 +47,18 @@ export const ChangePassword = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2))
+      const body = {
+        password: values.currentPassword,
+        newPassword: values.newPassword
+      }
+      dispatch(updatePassword(body)).then((result) => {
+        if (result.message === 'The password has been changed') {
+          alert.confirmation(true, 'Password changed', result.message)
+          handleCloseChangePassword()
+        } else {
+          alert.error(true, 'Password not changed', result.message)
+        }
+      })
     }
   })
 
