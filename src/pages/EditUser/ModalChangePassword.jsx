@@ -21,7 +21,7 @@ export const ModalChangePassword = () => {
         aria-describedby="parent-modal-description"
         >
             <Box>
-              <ChangePassword/>
+              <ChangePassword handleCloseChangePassword={handleCloseChangePassword} />
             </Box>
         </Modal>
     </Box>
