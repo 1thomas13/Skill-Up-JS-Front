@@ -4,11 +4,13 @@ import { UserProfile } from './UserProfile'
 import Icon from '@mui/material/Icon'
 import { useDispatch } from 'react-redux'
 import { getUser } from '../../app/actions/index'
+import { decodeToken } from '../../helpers/decodeToken'
 
 export const ModalUserProfile = () => {
+  const decodedToken = decodeToken((localStorage.getItem('token')))
   const dispatch = useDispatch()
   const dispatchUser = useCallback(
-    () => dispatch(getUser()),
+    () => dispatch(getUser(decodedToken.id)),
     [dispatch]
   )
 
