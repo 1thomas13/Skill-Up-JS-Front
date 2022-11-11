@@ -7,3 +7,7 @@
 .card {
   box-shadow: 0px 8px 20px rgba(65, 65, 65, 0.08) !important;
 }
+
+.swal2-container {
+  z-index: 20000 !important;
+}
