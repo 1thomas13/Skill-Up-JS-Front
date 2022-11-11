@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_CATEGORIES, LOGIN_USER, LOGOUT_USER, GET_USERS } from './types'
+import { GET_CATEGORIES, LOGIN_USER, LOGOUT_USER, GET_USERS, GET_USER } from './types'
 import { instance } from '../../../utils/instance'
 
 export function getCategories () {
@@ -63,6 +63,13 @@ export function createTransaction (payload) {
       console.log(e.message)
     }
   }
+}
+
+export const getUser = (userid) => async (dispatch) => {
+  const res = await instance.get(`/users/${userid}`)
+  dispatch({ type: GET_USER, payload: res.data })
+
+  return res
 }
 
 export const updatePassword = async (userid, payload) => {

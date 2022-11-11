@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOGOUT_USER, GET_USERS } from '../actions/types'
+import { LOGIN_USER, LOGOUT_USER, GET_USERS, GET_USER } from '../actions/types'
 
 const initialState = {
   users: [],
@@ -18,6 +18,10 @@ function userReducer (state = initialState, { type, payload }) {
     case GET_USERS: return {
       ...state,
       users: payload
+    }
+    case GET_USER: return {
+      ...state,
+      user: payload
     }
 
     default: return state
