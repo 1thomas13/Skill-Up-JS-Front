@@ -7,6 +7,8 @@ import { CircleButton } from './Components/CircleButton'
 import { Modal } from './Components/Modal'
 export const Balance = () => {
   const [open, setOpen] = useState(false)
+  const [action, setAction] = useState('')
+
   const exampleData = [
     {
       categoryId: 'outcome',
@@ -22,7 +24,10 @@ export const Balance = () => {
     }
   ]
 
-  const handleOpen = () => setOpen(true)
+  const handleOpen = (action) => {
+    setAction(action)
+    setOpen(true)
+  }
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -43,12 +48,12 @@ export const Balance = () => {
           <CircleButton
             icon='attach_money'
             text='Cargar saldo'
-            onClick={handleOpen}
+            onClick={() => handleOpen('income')}
           />
           <CircleButton
             icon='payments'
             text='Agregar gasto'
-            onClick={handleOpen}
+            onClick={() => handleOpen('outcome')}
           />
         </Box>
       </Box>
@@ -62,7 +67,7 @@ export const Balance = () => {
           />
         ))}
       </Surface>
-      <Modal open={open} setOpen={setOpen} />
+      <Modal open={open} setOpen={setOpen} action={action} />
     </Box>
   )
 }

@@ -1,8 +1,6 @@
-import { instance } from '../../../utils/instance'
 import axios from 'axios'
 import { GET_CATEGORIES, LOGIN_USER, LOGOUT_USER, GET_USERS } from './types'
-
-const { URL } = import.meta.env.VITE_URL
+import { instance } from '../../../utils/instance'
 
 export function getCategories () {
   return async function (dispatch) {
@@ -26,18 +24,19 @@ export function postCategory (payload) {
   }
 }
 
-export function createUser (payload) {
-  return async function () {
-    const response = await axios.post(`${URL}/users`, payload)
-    return response
-  }
+export const createUser = async (values) => {
+  const response = await instance.post('/users', values)
+  console.log(response)
+  return response
 }
 
-export function logUser (payload) {
-  return async function (dispatch) {
-    const response = await axios.post(/* Endpoint de logeo, */ payload)
-    return dispatch({ type: LOGIN_USER, payload: response.data.user })
-  }
+export const logUser = (values) => async (dispatch) => {
+  const res = await instance.post('/users/login', values)
+  console.log(res)
+  localStorage.setItem('token', JSON.stringify(res.data.body.token))
+  dispatch({ type: LOGIN_USER, payload: res.data.body.userData })
+
+  return res
 }
 
 export function logout () {

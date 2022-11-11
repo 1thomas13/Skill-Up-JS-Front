@@ -1,4 +1,8 @@
 export const GET_CATEGORIES = 'GET_CATEGORIES'
-export const LOG_USER = 'LOG_USER'
-export const ULOG_USER = 'UNLOG_USER'
+
+export const LOGOUT_USER = 'LOGOUT_USER'
+export const LOGIN_USER = 'LOGIN_USER'
 export const GET_USERS = 'GET_USERS'
+
+export const ALL_TRANSACTIONS = 'ALL_TRANSACTIONS'
+export const MY_TRANSACTIONS = 'MY_TRANSACTIONS'
