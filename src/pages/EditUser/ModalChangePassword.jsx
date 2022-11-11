@@ -13,7 +13,7 @@ export const ModalChangePassword = () => {
   }
   return (
     <Box>
-        <CustomButton onClick={handleOpenChangePassword}>Cambiar contrasena</CustomButton>
+        <CustomButton sx={{ ml: 2, mr: 2, width: 200 }} onClick={handleOpenChangePassword}>Cambiar contrasena</CustomButton>
         <Modal
         open={openChangePassword}
         onClose={handleCloseChangePassword}

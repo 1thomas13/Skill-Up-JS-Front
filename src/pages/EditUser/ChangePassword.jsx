@@ -1,10 +1,11 @@
 import React from 'react'
-import { Card, CardActions, CardContent, Typography, Button, TextField } from '@mui/material'
+import { Card, CardActions, CardContent, Typography, TextField } from '@mui/material'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import { useDispatch } from 'react-redux'
 import { alert } from '../../services/alert/Alert'
 import { updatePassword } from '../../app/actions'
+import { CustomButton } from '../../Components/CustomButton'
 
 const styleCard = {
   position: 'absolute',
@@ -104,7 +105,7 @@ export const ChangePassword = ({ handleCloseChangePassword }) => {
         />
       </CardContent>
       <CardActions sx={{ mt: 6, display: 'flex', justifyContent: 'center' }}>
-        <Button onClick={formik.handleSubmit}>Cambiar</Button>
+        <CustomButton onClick={formik.handleSubmit} sx={{ ml: 2, mr: 2, width: 200 }}>Cambiar</CustomButton>
       </CardActions>
     </Card>
   )

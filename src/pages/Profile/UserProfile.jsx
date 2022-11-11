@@ -37,9 +37,9 @@ export const UserProfile = () => {
         ))}
       </CardContent>
       <CardActions sx={{ m: 6 }}>
-        <CustomButton>Editar usuario</CustomButton>
+        <CustomButton sx={{ mr: 2, ml: 2, width: 200 }}>Editar usuario</CustomButton>
         <ModalChangePassword/>
-        <CustomButton>Borrar usuario</CustomButton>
+        <CustomButton sx={{ ml: 2, mr: 2, width: 200 }}>Borrar usuario</CustomButton>
       </CardActions>
     </Card>
   )
