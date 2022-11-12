@@ -30,6 +30,7 @@ const validationSchema = yup.object({
     .string('Ingresa una nueva contraseña')
     .min(8, 'La contraseña debe tener un minimo de 8 caracteres')
     .notOneOf([yup.ref('currentPassword'), null], 'Las contraseña no debe coincidir con la actual')
+    .oneOf([yup.ref('passwordConfirmation'), null], 'Las contraseñas deben coincidir')
     .required('El campo es requerido'),
   passwordConfirmation: yup
     .string('Repite la nueva contraseña')
@@ -38,7 +39,7 @@ const validationSchema = yup.object({
     .required('El campo es requerido')
 })
 
-export const ChangePassword = ({ handleCloseChangePassword }) => {
+export const ChangePassword = ({ userId, handleCloseChangePassword }) => {
   const dispatch = useDispatch()
   const formik = useFormik({
     initialValues: {
@@ -52,12 +53,12 @@ export const ChangePassword = ({ handleCloseChangePassword }) => {
         password: values.currentPassword,
         newPassword: values.newPassword
       }
-      dispatch(updatePassword(body)).then((result) => {
+      dispatch(updatePassword(userId, body)).then((result) => {
         if (result.message === 'The password has been changed') {
-          alert.confirmation(true, 'Password changed', result.message)
+          alert.confirmation(true, 'Contraseña cambiada')
           handleCloseChangePassword()
         } else {
-          alert.error(true, 'Password not changed', result.message)
+          alert.error(true, 'La contraseña no fue cambiada', 'Ocurrio un error')
         }
       })
     }
