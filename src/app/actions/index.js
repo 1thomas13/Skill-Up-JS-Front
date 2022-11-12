@@ -88,18 +88,18 @@ export const getUser = () => async (dispatch) => {
   }
 }
 
-export const updatePassword = async (userid, payload) => {
+export const updatePassword = (payload) => async() => {
   try {
-    const res = await instance.put(`/users/changepassword/${userid}`, payload)
+    const res = await instance.put('/users/user/changepassword', payload)
     return res.data
   } catch (err) {
     console.log(err.message)
   }
 }
 
-export const deleteUser = async (userid) => {
+export const deleteUser = () => async () => {
   try {
-    const res = await instance.delete(`users/${userid}`)
+    const res = await instance.delete('/users/user')
     return res.data
   } catch (err) {
     console.log(err.message)
