@@ -1,21 +1,12 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { Box, Modal, Button } from '@mui/material'
 import { UserProfile } from './UserProfile'
 import Icon from '@mui/material/Icon'
-import { useDispatch } from 'react-redux'
-import { getUser } from '../../app/actions/index'
 
 export const ModalUserProfile = () => {
-  const dispatch = useDispatch()
-  const dispatchUser = useCallback(
-    () => dispatch(getUser()),
-    [dispatch]
-  )
-
   const [open, setOpen] = React.useState(false)
   const handleOpenUserProfile = () => {
     setOpen(true)
-    dispatchUser()
   }
   const handleCloseUserProfile = () => {
     setOpen(false)
