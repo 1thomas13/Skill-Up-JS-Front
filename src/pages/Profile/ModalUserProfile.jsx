@@ -8,9 +8,10 @@ import { decodeToken } from '../../helpers/decodeToken'
 
 export const ModalUserProfile = () => {
   const decodedToken = decodeToken((localStorage.getItem('token')))
+
   const dispatch = useDispatch()
   const dispatchUser = useCallback(
-    () => dispatch(getUser(decodedToken.id)),
+    () => dispatch(getUser(decodedToken.data.id)),
     [dispatch]
   )
 
