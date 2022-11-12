@@ -1,6 +1,15 @@
 import { Box, Icon, Typography } from '@mui/material'
 import React from 'react'
 
+import {
+  LeadingActions,
+  SwipeableList,
+  SwipeableListItem,
+  SwipeAction,
+  TrailingActions
+} from 'react-swipeable-list'
+import 'react-swipeable-list/dist/styles.css'
+
 export const MoneyMove = ({ variant, data }) => {
   let icon = ''
   let baseStyle = {}
@@ -31,16 +40,49 @@ export const MoneyMove = ({ variant, data }) => {
       icon = 'paid'
       break
   }
+
+  const leadingActions = () => {
+    return (
+      <LeadingActions>
+        <SwipeAction onClick={() => {
+          console.log('delete')
+        }} destructive={true}>
+          <Box sx={{ backgroundColor: '#f1dedb', display: 'flex', alignItems: 'center', padding: '10px' }}>
+            <Typography variant='subtitle2'>Eleminar</Typography>
+          </Box>
+        </SwipeAction>
+      </LeadingActions>
+    )
+  }
+
+  const trailingActions = () => {
+    return (
+      <TrailingActions>
+        <SwipeAction onClick={console.log('edit')}>
+        <Box sx={{ backgroundColor: '#d3d3ee', display: 'flex', alignItems: 'center', padding: '10px', fontWeight:'bold' }}>
+          <Typography variant='subtitle2'>Editar</Typography>
+        </Box>
+        </SwipeAction>
+      </TrailingActions >
+    )
+  }
+
   return (
     <Box
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '100%'
+        width: '100%',
+        cursor: 'grab'
       }}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+    <SwipeableList>
+      <SwipeableListItem
+        leadingActions={leadingActions()}
+        trailingActions={trailingActions()}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
         <Box
           sx={{
             display: 'flex',
@@ -65,6 +107,8 @@ export const MoneyMove = ({ variant, data }) => {
           {variant === 'outcome' && '-'}${data.amount}
         </Typography>
       </div>
+      </SwipeableListItem>
+    </SwipeableList>
     </Box>
   )
 }

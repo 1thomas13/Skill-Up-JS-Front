@@ -7,6 +7,7 @@ import { MoneyMove } from '../../Components/MoneyMove'
 import { Surface } from '../../Components/Surface'
 import { CircleButton } from './Components/CircleButton'
 import { Modal } from './Components/Modal'
+
 export const Balance = () => {
   const [open, setOpen] = useState(false)
   const [action, setAction] = useState('')
