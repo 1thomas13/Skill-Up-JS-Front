@@ -1,6 +1,6 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import { Container } from '@mui/system'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { Footer } from '../Footer'
 import { MobileNav } from './MobileNav'
@@ -13,7 +13,7 @@ export const Navbar = () => {
   const pages = [
     {
       text: 'Balance',
-      route: 'balance',
+      route: '/',
       icon: 'account_balance'
     },
     {

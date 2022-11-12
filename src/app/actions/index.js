@@ -1,26 +1,22 @@
 import axios from 'axios'
-import { GET_CATEGORIES, LOGIN_USER, LOGOUT_USER, GET_USERS, GET_USER } from './types'
-import { instance } from '../../../utils/instance'
+import { instance } from '../../utils/instance'
+import { ALL_TRANSACTIONS, GET_CATEGORIES, GET_USERS, LOGIN_USER, LOGOUT_USER } from './types'
 
-export function getCategories () {
-  return async function (dispatch) {
-    try {
-      const response = await axios.get(`${URL}/categories`)
-      return dispatch({ type: GET_CATEGORIES, payload: response.data })
-    } catch (e) {
-      console.log(e.message)
-    }
+export const getCategories = () => async (dispatch) => {
+  try {
+    const res = await instance.get('/categories')
+    console.log(res)
+    return dispatch({ type: GET_CATEGORIES, payload: res.data.body })
+  } catch (error) {
+    return error.message
   }
 }
-
-export function postCategory (payload) {
+export function postCategory(payload) {
   return async function () {
     try {
       const response = await axios.post(`${URL}/categories`, payload)
       return response
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 }
 
@@ -39,22 +35,26 @@ export const logUser = (values) => async (dispatch) => {
   return res
 }
 
-export function logout () {
+export function logout() {
   return { type: LOGOUT_USER }
 }
-
-export function getUsers () {
-  return async function (dispatch) {
-    try {
-      const res = await axios.get(`${URL}/users`)
-      return dispatch({ type: GET_USERS, payload: res.data.users })
-    } catch (e) {
-      console.log(e.message)
-    }
+export const getUsers = () => async (dispatch) => {
+  try {
+    const res = await instance.get('/users')
+    return dispatch({ type: GET_USERS, payload: res.data.body })
+  } catch (e) {
+    return e.message
   }
 }
-
-export function createTransaction (payload) {
+export const getTransactions = () => async (dispatch) => {
+  try {
+    const res = await instance.get('/transactions')
+    return dispatch({ type: ALL_TRANSACTIONS, payload: res.data.body })
+  } catch (e) {
+    return e.message
+  }
+}
+export function createTransaction(payload) {
   return async function () {
     try {
       const response = await axios.post(`${URL}/transactions`, payload)
