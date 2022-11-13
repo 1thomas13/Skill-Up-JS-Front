@@ -1,20 +1,27 @@
-import { ALL_TRANSACTIONS, MY_TRANSACTIONS, GET_BALANCE } from '../actions/types'
+import { ADD_TRANSACTION, ALL_TRANSACTIONS, GET_BALANCE, MY_TRANSACTIONS } from '../actions/types'
 
 const initialState = {
   transactions: [],
   balance: 0
 }
 
-function transactionReducer (state = initialState, { type, payload }) {
+function transactionReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case ALL_TRANSACTIONS: return {
-      ...state,
-      transactions: payload
-    }
-    case MY_TRANSACTIONS: return {
-      ...state,
-      transactions: payload
-    }
+    case ALL_TRANSACTIONS:
+      return {
+        ...state,
+        transactions: payload
+      }
+    case ADD_TRANSACTION:
+      return {
+        ...state,
+        transactions: [...state.transactions, payload]
+      }
+    case MY_TRANSACTIONS:
+      return {
+        ...state,
+        transactions: payload
+      }
     case GET_BALANCE:
       let bal = 0
       for (let i = 0; i < state.transactions.length; i++) {
@@ -29,7 +36,8 @@ function transactionReducer (state = initialState, { type, payload }) {
         balance: bal
       }
 
-    default: return state
+    default:
+      return state
   }
 }
 

@@ -6,8 +6,7 @@ console.log(getToken())
 const getAuthorizationHeader = () => `Bearer ${getToken()}`
 
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_URL,
-  timeout: 1000
+  baseURL: import.meta.env.VITE_URL
 })
 
 instance.interceptors.request.use(

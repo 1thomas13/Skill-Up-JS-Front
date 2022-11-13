@@ -1,13 +1,13 @@
-import axios from 'axios'
 import instance from '../../utils/instance'
 import {
+  ADD_TRANSACTION,
   ALL_TRANSACTIONS,
+  GET_BALANCE,
   GET_CATEGORIES,
   GET_USER,
   GET_USERS,
   LOGIN_USER,
-  LOGOUT_USER,
-  GET_BALANCE
+  LOGOUT_USER
 } from './types'
 
 export const getCategories = () => async (dispatch) => {
@@ -29,16 +29,24 @@ export function postCategory(payload) {
 }
 
 export const createUser = async (values) => {
-  const response = await instance.post('/users', values)
-  console.log(response)
-  return response
+  const res = await instance.post('/users', values)
+  console.log(res)
+  if (res.status !== 200) {
+    console.log(res.message)
+    throw new Error(res.message)
+  }
 }
 
 export const logUser = (values) => async (dispatch) => {
-  const res = await axios.post('http://localhost:3000/users/login', values)
-  console.log(res)
+  const res = await instance.post('/users/login', values)
+
+  if (res.status !== 200) {
+    console.log(res.message)
+    throw new Error(res.message)
+  }
   localStorage.setItem('token', res.data.body.token)
   sessionStorage.setItem('role', res.data.body.userData.roleId)
+
   dispatch({ type: LOGIN_USER, payload: res.data.body.userData })
 
   return res
@@ -47,6 +55,7 @@ export const logUser = (values) => async (dispatch) => {
 export function logout() {
   return { type: LOGOUT_USER }
 }
+
 export const getUsers = () => async (dispatch) => {
   try {
     const res = await instance.get('/users')
@@ -55,6 +64,7 @@ export const getUsers = () => async (dispatch) => {
     return e.message
   }
 }
+
 export const getTransactions = () => async (dispatch) => {
   try {
     const res = await instance.get('/transactions')
@@ -64,18 +74,20 @@ export const getTransactions = () => async (dispatch) => {
     return e.message
   }
 }
-export function createTransaction(payload) {
-  return async function () {
-    try {
-      const response = await axios.post(`${URL}/transactions`, payload)
-      return response
-    } catch (e) {
-      console.log(e.message)
-    }
+
+export const createTransaction = (values) => async (dispatch) => {
+  const res = await instance.post('/transactions', values)
+  console.log(res)
+  if (res.status !== 200) {
+    console.log(res.message)
+    throw new Error(res.message)
   }
+
+  return dispatch({ type: ADD_TRANSACTION, payload: res.data.body })
 }
-export function getBalance() {
-  return { type: GET_BALANCE }
+
+export const getBalance = () => (dispatch) => {
+  return dispatch({ type: GET_BALANCE })
 }
 
 export const getUser = () => async (dispatch) => {

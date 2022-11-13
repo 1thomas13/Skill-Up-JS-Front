@@ -6,7 +6,7 @@ export const MoneyMove = ({ variant, data }) => {
   let baseStyle = {}
 
   switch (variant) {
-    case 'income':
+    case 1:
       baseStyle = {
         color: 'primary.main',
         bgColor: 'surfaces.three',
@@ -19,7 +19,7 @@ export const MoneyMove = ({ variant, data }) => {
       }
       icon = 'savings'
       break
-    case 'outcome':
+    case 2:
       baseStyle = {
         color: 'secondary.main',
         bgColor: 'surfaces.three',
@@ -31,7 +31,6 @@ export const MoneyMove = ({ variant, data }) => {
       icon = 'paid'
       break
   }
-
   return (
     <Box
       sx={{
@@ -58,17 +57,12 @@ export const MoneyMove = ({ variant, data }) => {
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Typography variant='subtitle2'>{data.description}</Typography>
-          <Typography color='grey.400'>{data.date}</Typography>
+          <Typography color='grey.400'>{data.date.slice(0, 10)}</Typography>
         </Box>
       </Box>
       <div>
-        <Typography
-          variant='subtitle2'
-          color={baseStyle.color}
-          sx={baseStyle.money}
-        >
-          {variant === 'outcome' && '-'}
-          {data.amount}
+        <Typography variant='subtitle2' color={baseStyle.color} sx={baseStyle.money}>
+          {variant === 'outcome' && '-'}${data.amount}
         </Typography>
       </div>
     </Box>

@@ -22,57 +22,56 @@ export const LoginForm = () => {
 
   return (
     <Formik
-      initialValues={{
-        email: '',
-        password: ''
-      }}
-      validationSchema={signInSchema}
-      onSubmit={async (values, { resetForm }) => {
-        try {
-          await dispatch(logUser(values)).then(() => navigate('/'))
-        } catch (e) {
-          console.log(e.message)
-          alert.error(true, 'Error', e.message)
-        }
-      }}
-    >
-      {({ touched, errors, handleBlur, handleSubmit, handleChange, values }) => (
-        <Form onSubmit={handleSubmit}>
-          <div>
-            <TextField
-              error={touched.email && errors.email}
-              value={values.email}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              label='Email'
-              helperText={touched.email && errors.email}
-              variant='standard'
-              type='email'
-              name='email'
-              fullWidth
-              margin='dense'
-            />
-          </div>
-          <div>
-            <TextField
-              error={touched.password && errors.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              name='password'
-              label='Password'
-              helperText={touched.password && errors.password}
-              variant='standard'
-              type='password'
-              value={values.password}
-              fullWidth
-              margin='dense'
-            />
-          </div>
-          <CustomButton sx={{ margin: '20px 0 10px 0' }} type='submit'>
-            Log in
-          </CustomButton>
-        </Form>
-      )}
-    </Formik>
+        initialValues={{
+          email: '',
+          password: ''
+        }}
+        validationSchema={signInSchema}
+        onSubmit={ async(values) => {
+          try {
+            await dispatch(logUser(values)).then(() => navigate('/'))
+          } catch (e) {
+            alert.error(true, 'Error', e.message)
+          }
+        }}
+        >
+        {({ touched, errors, handleBlur, handleSubmit, handleChange, values }) => (
+          <Form onSubmit={ handleSubmit }>
+            <div>
+              <TextField
+                error={touched.email && errors.email}
+                value={values.email}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                label="Email"
+                helperText={touched.email && errors.email}
+                variant="standard"
+                type='email'
+                name='email'
+                fullWidth
+                margin="dense"
+              />
+            </div>
+            <div>
+              <TextField
+                error={touched.password && errors.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                name='password'
+                label="Password"
+                helperText={touched.password && errors.password}
+                variant="standard"
+                type='password'
+                value={values.password}
+                fullWidth
+                margin="dense"
+              />
+            </div>
+            <CustomButton sx={{ margin: '20px 0 10px 0' }} type="submit">
+              Log in
+            </CustomButton>
+          </Form>
+        )}
+      </Formik>
   )
 }
