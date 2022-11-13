@@ -1,4 +1,6 @@
 import { Box, Icon, Typography } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete'
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle'
 import React from 'react'
 
 import {
@@ -9,8 +11,11 @@ import {
   TrailingActions
 } from 'react-swipeable-list'
 import 'react-swipeable-list/dist/styles.css'
+import { alert } from '../services/alert/Alert'
+import { useDispatch } from 'react-redux'
+import { deleteTransaction, getBalance, getTransactions } from '../app/actions'
 
-export const MoneyMove = ({ variant, data }) => {
+export const MoneyMove = ({ variant, data, handleOpen, setCurrentTransaction }) => {
   let icon = ''
   let baseStyle = {}
 
@@ -41,13 +46,24 @@ export const MoneyMove = ({ variant, data }) => {
       break
   }
 
+  const dispatch = useDispatch()
+
   const leadingActions = () => {
     return (
       <LeadingActions>
-        <SwipeAction onClick={() => {
-          console.log('delete')
-        }} destructive={true}>
+        <SwipeAction onClick={ async() => {
+          try {
+            await dispatch(deleteTransaction(data.id))
+            await dispatch(getTransactions()).then(() => dispatch(getBalance()))
+            alert.confirmation(true, 'Operacion', 'La operacion se elemino correctamente')
+            setCurrentTransaction({})
+          } catch (e) {
+            console.log(e.message)
+            alert.error(true, 'Error', e.message)
+          }
+        }}>
           <Box sx={{ backgroundColor: '#f1dedb', display: 'flex', alignItems: 'center', padding: '10px' }}>
+            <DeleteIcon/>
             <Typography variant='subtitle2'>Eleminar</Typography>
           </Box>
         </SwipeAction>
@@ -58,8 +74,13 @@ export const MoneyMove = ({ variant, data }) => {
   const trailingActions = () => {
     return (
       <TrailingActions>
-        <SwipeAction onClick={console.log('edit')}>
-        <Box sx={{ backgroundColor: '#d3d3ee', display: 'flex', alignItems: 'center', padding: '10px', fontWeight:'bold' }}>
+        <SwipeAction onClick={() => {
+          console.log(data)
+          setCurrentTransaction(data)
+          handleOpen()
+        }}>
+        <Box sx={{ backgroundColor: '#d3d3ee', display: 'flex', alignItems: 'center', padding: '10px' }}>
+          <ChangeCircleIcon/>
           <Typography variant='subtitle2'>Editar</Typography>
         </Box>
         </SwipeAction>
@@ -82,7 +103,7 @@ export const MoneyMove = ({ variant, data }) => {
         leadingActions={leadingActions()}
         trailingActions={trailingActions()}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px', width: '100%' }}>
         <Box
           sx={{
             display: 'flex',

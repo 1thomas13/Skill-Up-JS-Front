@@ -10,6 +10,7 @@ import { Modal } from './Components/Modal'
 
 export const Balance = () => {
   const [open, setOpen] = useState(false)
+  const [currentTransaction, setCurrentTransaction] = useState([{}])
   const [action, setAction] = useState('')
   const dispatch = useDispatch()
   const transactions = useSelector((state) => state.transactions)
@@ -46,10 +47,10 @@ export const Balance = () => {
       <Surface>
         Ultimos movimientos
         {transactions?.transactions?.map((data) => (
-          <MoneyMove variant={data.categoryId} data={data} key={data.id} />
+          <MoneyMove setCurrentTransaction={setCurrentTransaction} handleOpen={handleOpen} variant={data.categoryId} data={data} key={data.id} />
         ))}
       </Surface>
-      <Modal open={open} setOpen={setOpen} action={action} />
+      <Modal currentTransaction={currentTransaction} setCurrentTransaction={setCurrentTransaction} open={open} setOpen={setOpen} action={action} />
     </Box>
   )
 }

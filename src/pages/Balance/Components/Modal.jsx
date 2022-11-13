@@ -4,10 +4,10 @@ import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 import { CustomButton } from '../../../components/CustomButton'
 import { useDispatch } from 'react-redux'
-import { createTransaction } from '../../../app/actions'
+import { createTransaction, getTransactions, updateTransaction, getBalance } from '../../../app/actions'
 import { alert } from '../../../services/alert/Alert'
 
-export const Modal = ({ open, setOpen, action }) => {
+export const Modal = ({ open, setOpen, action, currentTransaction, setCurrentTransaction }) => {
   const dispatch = useDispatch()
 
   const operationSchema = yup.object().shape({
@@ -17,7 +17,11 @@ export const Modal = ({ open, setOpen, action }) => {
   })
 
   return (
-    <MuiModal open={open} onClose={() => setOpen(false)}>
+    <MuiModal open={open} onClose={() => {
+      setCurrentTransaction({})
+      setOpen(false)
+    }
+    }>
       <Box
         sx={{
           position: 'absolute',
@@ -33,20 +37,29 @@ export const Modal = ({ open, setOpen, action }) => {
         }}
       >
       <Typography variant='h6' textAlign={'center'}>
-        Agregar Operacion
+        {Object.keys(currentTransaction).length === 0 ? 'Agregar Operacion' : 'Editar operacion'}
       </Typography>
        <Formik
         initialValues={{
-          amount: '',
-          categoryId: action,
-          description: ''
+          id: currentTransaction?.id ?? '',
+          amount: currentTransaction?.amount ?? '',
+          categoryId: currentTransaction?.categoryId ?? action,
+          description: currentTransaction?.description ?? ''
         }}
         validationSchema={operationSchema}
-        onSubmit={(values, { resetForm }) => {
+        onSubmit={async(values, { resetForm }) => {
           try {
-            dispatch(createTransaction(values))
-            alert.confirmation(true, 'Operacion', 'La operacion se hizo correctamente')
+            console.log(values.id, 'aaaaa')
+            if (Object.keys(currentTransaction).length === 0) {
+              await dispatch(createTransaction(values))
+              alert.confirmation(true, 'Operacion', 'La operacion se hizo correctamente')
+            } else {
+              await dispatch(updateTransaction(values))
+              await dispatch(getTransactions()).then(() => dispatch(getBalance()))
+              alert.confirmation(true, 'Operacion', 'La operacion se actualizo correctamente')
+            }
             resetForm()
+            setCurrentTransaction({})
             setOpen(false)
           } catch (e) {
             console.log(e.message)
@@ -71,21 +84,23 @@ export const Modal = ({ open, setOpen, action }) => {
                 margin="dense"
               />
             </div>
-            <div>
-              <TextField
-                error={touched.description && errors.description}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                name='description'
-                label="Descripcion"
-                helperText={touched.description && errors.description}
-                variant="standard"
-                type='description'
-                value={values.description}
-                fullWidth
-                margin="dense"
-              />
-            </div>
+            {Object.keys(currentTransaction).length === 0 &&
+              <div>
+                <TextField
+                  error={touched.description && errors.description}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  name='description'
+                  label="Descripcion"
+                  helperText={touched.description && errors.description}
+                  variant="standard"
+                  type='description'
+                  value={values.description}
+                  fullWidth
+                  margin="dense"
+                />
+              </div>
+            }
             <div>
             <Select
               name='categoryId'
@@ -100,7 +115,7 @@ export const Modal = ({ open, setOpen, action }) => {
             </Select>
             </div>
             <CustomButton sx={{ margin: '20px 0 10px 0' }} type="submit">
-              Agregar
+              Confirmar
             </CustomButton>
           </Form>
         )}

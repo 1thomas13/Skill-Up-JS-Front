@@ -1,4 +1,5 @@
-import { ADD_TRANSACTION, ALL_TRANSACTIONS, GET_BALANCE, MY_TRANSACTIONS } from '../actions/types'
+/* eslint-disable no-case-declarations */
+import { ADD_TRANSACTION, ALL_TRANSACTIONS, GET_BALANCE, MY_TRANSACTIONS, DELETE_TRANSACTION } from '../actions/types'
 
 const initialState = {
   transactions: [],
