@@ -72,7 +72,7 @@ export const FormCategory = () => {
               {touched.description && errors.description && <span>{errors.description}</span>}
             </div>
             <CustomButton sx={{ margin: '20px 0 10px 0' }} type='submit'>
-              Log in
+              Crear categoría
             </CustomButton>
           </Form>
         )}

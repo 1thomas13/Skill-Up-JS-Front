@@ -58,7 +58,7 @@ export const LoginForm = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 name='password'
-                label="Password"
+                label="Contraseña"
                 helperText={touched.password && errors.password}
                 variant="standard"
                 type='password'
@@ -68,7 +68,7 @@ export const LoginForm = () => {
               />
             </div>
             <CustomButton sx={{ margin: '20px 0 10px 0' }} type="submit">
-              Log in
+              Iniciar sesión
             </CustomButton>
           </Form>
         )}

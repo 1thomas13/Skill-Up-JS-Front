@@ -70,7 +70,7 @@ export const getTransactions = () => async (dispatch) => {
   try {
     const res = await instance.get('/transactions')
     console.log(res)
-    return dispatch({ type: ALL_TRANSACTIONS, payload: res.data.body })
+    return dispatch({ type: ALL_TRANSACTIONS, payload: res.data.body.reverse() })
   } catch (e) {
     return e.message
   }
@@ -120,18 +120,27 @@ export const getUser = () => async (dispatch) => {
   }
 }
 
-export const updatePassword = async (userid, payload) => {
+export const updatePassword = (payload) => async() => {
   try {
-    const res = await instance.put(`/users/changepassword/${userid}`, payload)
+    const res = await instance.put('/users/user/changepassword', payload)
     return res.data
   } catch (err) {
     console.log(err.message)
   }
 }
 
-export const deleteUser = async (userid) => {
+export const updateUser = async (payload) => {
   try {
-    const res = await instance.delete(`users/${userid}`)
+    const res = await instance.put('/users', payload)
+    return res.data
+  } catch (err) {
+    console.log(err.message)
+  }
+}
+
+export const deleteUser = () => async () => {
+  try {
+    const res = await instance.delete('/users/user')
     return res.data
   } catch (err) {
     console.log(err.message)

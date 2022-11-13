@@ -3,9 +3,9 @@ import { Card, CardActions, CardContent, Typography, TextField } from '@mui/mate
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import { useDispatch } from 'react-redux'
-import { alert } from '../../services/alert/Alert'
-import { updatePassword } from '../../app/actions'
-import { CustomButton } from '../../Components/CustomButton'
+import { alert } from '../../../services/alert/Alert'
+import { updatePassword } from '../../../app/actions'
+import { CustomButton } from '../../../Components/CustomButton'
 
 const styleCard = {
   position: 'absolute',
@@ -18,7 +18,9 @@ const styleCard = {
   pb: 3,
   display: 'flex',
   justifyContent: 'center',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  gap: '20px',
+  borderRadius: '20px'
 }
 
 const validationSchema = yup.object({
@@ -39,7 +41,7 @@ const validationSchema = yup.object({
     .required('El campo es requerido')
 })
 
-export const ChangePassword = ({ userId, handleCloseChangePassword }) => {
+export const ChangePassword = ({ handleCloseChangePassword }) => {
   const dispatch = useDispatch()
   const formik = useFormik({
     initialValues: {
@@ -49,18 +51,20 @@ export const ChangePassword = ({ userId, handleCloseChangePassword }) => {
     },
     validationSchema,
     onSubmit: (values) => {
-      const body = {
-        password: values.currentPassword,
-        newPassword: values.newPassword
-      }
-      dispatch(updatePassword(userId, body)).then((result) => {
-        if (result.message === 'The password has been changed') {
-          alert.confirmation(true, 'Contraseña cambiada')
-          handleCloseChangePassword()
-        } else {
-          alert.error(true, 'La contraseña no fue cambiada', 'Ocurrio un error')
+      try {
+        const body = {
+          password: values.currentPassword,
+          newPassword: values.newPassword
         }
-      })
+        dispatch(updatePassword(body)).then((result) => {
+          if (result.message === 'The password has been changed') {
+            alert.confirmation(true, 'Contraseña modificada', 'La contraseña fue modificada')
+            handleCloseChangePassword()
+          }
+        })
+      } catch (e) {
+        alert.error(true, 'Error', e.message)
+      }
     }
   })
 
@@ -73,7 +77,7 @@ export const ChangePassword = ({ userId, handleCloseChangePassword }) => {
           sx={{ mb: 2 }}
           id="currentPassword"
           name="currentPassword"
-          label="Current password"
+          label="Contraseña actual"
           type="password"
           value={formik.values.currentPassword}
           onChange={formik.handleChange}
@@ -85,7 +89,7 @@ export const ChangePassword = ({ userId, handleCloseChangePassword }) => {
           sx={{ mb: 2 }}
           id="newPassword"
           name="newPassword"
-          label="New password"
+          label="Nueva contraseña"
           type="password"
           value={formik.values.newPassword}
           onChange={formik.handleChange}
@@ -97,7 +101,7 @@ export const ChangePassword = ({ userId, handleCloseChangePassword }) => {
           sx={{ mb: 2 }}
           id="passwordConfirmation"
           name="passwordConfirmation"
-          label="Confirm your password"
+          label="Confirma tu contraseña"
           type="password"
           value={formik.values.passwordConfirmation}
           onChange={formik.handleChange}
@@ -105,7 +109,7 @@ export const ChangePassword = ({ userId, handleCloseChangePassword }) => {
           helperText={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation}
         />
       </CardContent>
-      <CardActions sx={{ mt: 6, display: 'flex', justifyContent: 'center' }}>
+      <CardActions sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
         <CustomButton onClick={formik.handleSubmit} sx={{ ml: 2, mr: 2, width: 200 }}>Cambiar</CustomButton>
       </CardActions>
     </Card>

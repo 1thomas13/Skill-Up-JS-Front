@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import React from 'react'
 
-export const Surface = ({ children, deep }) => {
+export const Surface = ({ children, deep, options }) => {
   return (
     <Box
       sx={{

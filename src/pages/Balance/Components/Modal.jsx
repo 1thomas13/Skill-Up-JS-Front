@@ -110,8 +110,8 @@ export const Modal = ({ open, setOpen, action, currentTransaction, setCurrentTra
               fullWidth
               margin="dense"
             >
-              <MenuItem value={1}>income</MenuItem>
-              <MenuItem value={2}>expense</MenuItem>
+              <MenuItem value={1}>ingreso</MenuItem>
+              <MenuItem value={2}>gasto</MenuItem>
             </Select>
             </div>
             <CustomButton sx={{ margin: '20px 0 10px 0' }} type="submit">

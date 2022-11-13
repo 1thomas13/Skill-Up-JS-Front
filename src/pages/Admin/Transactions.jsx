@@ -53,9 +53,7 @@ export const Transactions = () => {
             </Grid>
             {/* Total Orders */}
             <Grid item xs={12}>
-              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Orders />
-              </Paper>
+              <Orders />
             </Grid>
           </Grid>
         </Container>

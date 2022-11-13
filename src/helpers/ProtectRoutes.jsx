@@ -1,19 +1,23 @@
+import jwt_decode from 'jwt-decode'
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Navigate, Outlet } from 'react-router-dom'
 import { getUser } from '../app/actions'
 
 const ProtectRoutes = () => {
   const dispatch = useDispatch()
   const token = localStorage.getItem('token')
+  const decode = token && jwt_decode(token)
 
   useEffect(() => {
     dispatch(getUser())
   }, [])
 
-  const user = useSelector((state) => state.user)
-
-  if (!Object.keys(user).length === 0 || !token) {
+  if (!token) {
+    return <Navigate to='/login' replace={true} />
+  } else if (decode.exp * 1000 < Date.now()) {
+    localStorage.clear()
+    sessionStorage.clear()
     return <Navigate to='/login' replace={true} />
   }
   return <Outlet />

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box, Modal } from '@mui/material'
-import { CustomButton } from '../../Components/CustomButton'
+import { CustomButton } from '../../../Components/CustomButton'
 import { ChangePassword } from './ChangePassword'
 
-export const ModalChangePassword = ({ userId }) => {
+export const ModalChangePassword = () => {
   const [openChangePassword, setOpenChangePassword] = React.useState(false)
   const handleOpenChangePassword = () => {
     setOpenChangePassword(true)
@@ -12,8 +12,8 @@ export const ModalChangePassword = ({ userId }) => {
     setOpenChangePassword(false)
   }
   return (
-    <Box>
-        <CustomButton sx={{ ml: 2, mr: 2, width: 200 }} onClick={handleOpenChangePassword}>Cambiar contraseña</CustomButton>
+    <Box sx={{ m: 1 }}>
+        <CustomButton sx={{ width: 220 }} onClick={handleOpenChangePassword}>Cambiar contraseña</CustomButton>
         <Modal
         open={openChangePassword}
         onClose={handleCloseChangePassword}
@@ -21,7 +21,7 @@ export const ModalChangePassword = ({ userId }) => {
         aria-describedby="parent-modal-description"
         >
             <Box>
-              <ChangePassword userId={userId} handleCloseChangePassword={handleCloseChangePassword} />
+              <ChangePassword handleCloseChangePassword={handleCloseChangePassword} />
             </Box>
         </Modal>
     </Box>

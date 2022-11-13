@@ -3,6 +3,7 @@ import { useTheme } from '@mui/material/styles'
 import { Container } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { CustomNavLink } from './CustomNavLink'
+import { ModalUserProfile } from '../../pages/Profile/ModalUserProfile'
 
 export const MobileNav = ({ pages, img, logout }) => {
   const [open, setOpen] = useState(false)
@@ -55,6 +56,9 @@ export const MobileNav = ({ pages, img, logout }) => {
         }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Box sx={{ mb: 2 }}>
+            <ModalUserProfile />
+          </Box>
           {pages.map((page) => (
             <CustomNavLink page={page} key={page.route} onClick={() => setOpen(false)} />
           ))}

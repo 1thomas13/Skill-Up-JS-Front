@@ -101,7 +101,7 @@ export const FormUser = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             name='password'
-                            label="Password"
+                            label="Contraseña"
                             helperText={touched.password && errors.password}
                             variant="standard"
                             type='password'
@@ -116,7 +116,7 @@ export const FormUser = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             name='repeatPass'
-                            label="Repetir password"
+                            label="Repetir contraseña"
                             helperText={touched.repeatPass && errors.repeatPass}
                             variant="standard"
                             type='password'
