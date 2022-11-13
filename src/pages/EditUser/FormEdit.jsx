@@ -3,9 +3,9 @@ import { Form, Formik } from 'formik'
 import { React } from 'react'
 import { useSelector } from 'react-redux'
 import * as yup from 'yup'
-import { updateUser } from '../app/actions'
-import { alert } from '../services/alert/Alert.js'
-import { CustomButton } from './CustomButton'
+import { updateUser } from '../../app/actions'
+import { alert } from '../../services/alert/Alert.js'
+import { CustomButton } from '../../Components/CustomButton'
 
 export const FormUser = () => {
   const userStoreData = useSelector((state) => state.user)
