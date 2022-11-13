@@ -5,7 +5,8 @@ import { ModalChangePassword } from '../EditUser/ModalChangePassword'
 import { useSelector, useDispatch } from 'react-redux'
 import { Loader } from '../../Components/Loader'
 import { alert } from '../../services/alert/Alert'
-import { deleteUser, logout } from '../../app/actions/index'
+import { deleteUser } from '../../app/actions/index'
+import { useNavigate } from 'react-router-dom'
 
 const styleCard = {
   position: 'absolute',
@@ -25,6 +26,12 @@ const styleCard = {
 export const UserProfile = () => {
   const userStoreData = useSelector((state) => state.user)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const logout = () => {
+    localStorage.clear()
+    sessionStorage.clear()
+    navigate('/login')
+  }
   const fields = [
     { name: 'Nombre', value: userStoreData.user !== undefined ? userStoreData.user.firstName : (<Loader size={35}/>) },
     { name: 'Apellido', value: userStoreData.user !== undefined ? userStoreData.user.lastName : (<Loader size={35}/>) },
@@ -35,10 +42,11 @@ export const UserProfile = () => {
   const handleDeleteUser = () => {
     alert.question('Estas seguro?', 'Estas seguro que quieres eliminar el usuario?', 'Si').then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteUser(userStoreData.user.id)).then((result) => {
-          if (result.message === 'The user has been deleted') {
-            alert.confirmation(true, 'El usuario ha sido eliminado')
-            dispatch(logout())
+        dispatch(deleteUser()).then((res) => {
+          if (res.message === 'The user has been deleted') {
+            alert.confirmation(true, 'El usuario ha sido eliminado').then(() => {
+              logout()
+            })
           }
         })
       }
