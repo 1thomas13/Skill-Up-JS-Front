@@ -56,7 +56,7 @@ export const ChangePassword = ({ handleCloseChangePassword }) => {
         }
         dispatch(updatePassword(body)).then((result) => {
           if (result.message === 'The password has been changed') {
-            alert.confirmation(true, 'contraseña modificada', 'La contraseña fue modificada')
+            alert.confirmation(true, 'Contraseña modificada', 'La contraseña fue modificada')
             handleCloseChangePassword()
           }
         })
