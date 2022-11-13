@@ -33,7 +33,7 @@ export const FormUser = () => {
                 validationSchema={registerSchema}
                 onSubmit={async (values, { resetForm }) => {
                   try {
-                    await updateUser(userStoreData.user.id, values)
+                    await updateUser(values)
                     alert.confirmation(true, 'Actualizado con éxito', 'Has actualizado tu perfil')
                     resetForm()
                   } catch (e) {
