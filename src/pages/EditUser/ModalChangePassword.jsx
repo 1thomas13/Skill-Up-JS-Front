@@ -3,7 +3,7 @@ import { Box, Modal } from '@mui/material'
 import { CustomButton } from '../../Components/CustomButton'
 import { ChangePassword } from './ChangePassword'
 
-export const ModalChangePassword = ({ userId }) => {
+export const ModalChangePassword = () => {
   const [openChangePassword, setOpenChangePassword] = React.useState(false)
   const handleOpenChangePassword = () => {
     setOpenChangePassword(true)
@@ -21,7 +21,7 @@ export const ModalChangePassword = ({ userId }) => {
         aria-describedby="parent-modal-description"
         >
             <Box>
-              <ChangePassword userId={userId} handleCloseChangePassword={handleCloseChangePassword} />
+              <ChangePassword handleCloseChangePassword={handleCloseChangePassword} />
             </Box>
         </Modal>
     </Box>

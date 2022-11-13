@@ -39,7 +39,7 @@ const validationSchema = yup.object({
     .required('El campo es requerido')
 })
 
-export const ChangePassword = ({ userId, handleCloseChangePassword }) => {
+export const ChangePassword = ({ handleCloseChangePassword }) => {
   const dispatch = useDispatch()
   const formik = useFormik({
     initialValues: {
@@ -49,18 +49,20 @@ export const ChangePassword = ({ userId, handleCloseChangePassword }) => {
     },
     validationSchema,
     onSubmit: (values) => {
-      const body = {
-        password: values.currentPassword,
-        newPassword: values.newPassword
-      }
-      dispatch(updatePassword(userId, body)).then((result) => {
-        if (result.message === 'The password has been changed') {
-          alert.confirmation(true, 'Contraseña cambiada')
-          handleCloseChangePassword()
-        } else {
-          alert.error(true, 'La contraseña no fue cambiada', 'Ocurrio un error')
+      try {
+        const body = {
+          password: values.currentPassword,
+          newPassword: values.newPassword
         }
-      })
+        dispatch(updatePassword(body)).then((result) => {
+          if (result.message === 'The password has been changed') {
+            alert.confirmation(true, 'Contraseña modificada', 'La contraseña fue modificada')
+            handleCloseChangePassword()
+          }
+        })
+      } catch (e) {
+        alert.error(true, 'Error', e.message)
+      }
     }
   })
 
