@@ -62,7 +62,7 @@ export const MoneyMove = ({ variant, data }) => {
       </Box>
       <div>
         <Typography variant='subtitle2' color={baseStyle.color} sx={baseStyle.money}>
-          {variant === 'outcome' && '-'}${data.amount}
+          {variant === 2 && '-'}${data.amount}
         </Typography>
       </div>
     </Box>
