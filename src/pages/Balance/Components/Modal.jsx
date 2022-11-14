@@ -76,37 +76,37 @@ export const Modal = ({ open, setOpen, currentTransaction, setCurrentTransaction
           {({ touched, errors, handleBlur, handleSubmit, handleChange, values }) => (
             <Form onSubmit={handleSubmit}>
               <div>
+                {Object.keys(currentTransaction).length === 0 && (
+                  <TextField
+                    error={touched.amount && errors.amount}
+                    value={values.amount}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    label='Cantidad'
+                    helperText={touched.amount && errors.amount}
+                    variant='standard'
+                    type='number'
+                    name='amount'
+                    fullWidth
+                    margin='dense'
+                  />
+                )}
+              </div>
+              <div>
                 <TextField
-                  error={touched.amount && errors.amount}
-                  value={values.amount}
-                  onBlur={handleBlur}
+                  error={touched.description && errors.description}
                   onChange={handleChange}
-                  label='Cantidad'
-                  helperText={touched.amount && errors.amount}
+                  onBlur={handleBlur}
+                  name='description'
+                  label='Descripcion'
+                  helperText={touched.description && errors.description}
                   variant='standard'
-                  type='number'
-                  name='amount'
+                  type='description'
+                  value={values.description}
                   fullWidth
                   margin='dense'
                 />
               </div>
-              {Object.keys(currentTransaction).length === 0 && (
-                <div>
-                  <TextField
-                    error={touched.description && errors.description}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    name='description'
-                    label='Descripcion'
-                    helperText={touched.description && errors.description}
-                    variant='standard'
-                    type='description'
-                    value={values.description}
-                    fullWidth
-                    margin='dense'
-                  />
-                </div>
-              )}
               <div>
                 <Select
                   name='categoryId'
