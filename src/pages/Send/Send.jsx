@@ -15,7 +15,7 @@ export const Send = () => {
     dispatch(getTransactions()).then(() => dispatch(getBalance()))
   }, [dispatch])
   const balance = useSelector((state) => state.transactions.balance)
-  console.log(balance)
+  
   return (
     <>
       <Typography color='grey.400' sx={{ display: { xs: 'none', md: 'block' } }}>
