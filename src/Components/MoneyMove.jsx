@@ -88,7 +88,6 @@ export const MoneyMove = ({ variant, data, handleOpen, setCurrentTransaction }) 
       <TrailingActions>
         <SwipeAction
           onClick={() => {
-            console.log(data)
             setCurrentTransaction(data)
             handleOpen()
           }}

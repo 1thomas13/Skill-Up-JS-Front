@@ -17,7 +17,7 @@ export const Pagination = ({ data, children }) => {
   return (
     <Surface>
       {currentPosts.map((data) =>
-        !isNotAdmin ? (
+        isNotAdmin ? (
           <AdminMove variant={data?.categoryId} data={data} key={data.id} />
         ) : (
           <MoneyMove variant={data?.categoryId} data={data} key={data.id} />
